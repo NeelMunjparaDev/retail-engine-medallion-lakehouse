@@ -1,0 +1,18 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Jupyter / Databricks Notebook checkpoints
+.ipynb_checkpoints/
+.databricks/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Spark/Local temporary files
+.spark-warehouse/
+metastore_db/
+derby.log
+checkpoint/
