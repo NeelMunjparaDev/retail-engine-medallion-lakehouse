@@ -7,9 +7,8 @@ This project implements a production-grade **Medallion Architecture** to process
 
 ## Business Context & Problem Statement
 In a high-volume retail environment, data arrives from disparate sources with inconsistent naming (e.g., "Headphonz" vs "Headphones"), duplicate entries from system retries, and unmasked sensitive customer info.
-**The Goal:** Build an automated, idempotent pipeline that provides a "Single Version of Truth" for executive revenue reporting while maintaining full historical context of customer movements.
-
-
+- **Data Source:** Synthetic Enterprise Retail Dataset (5.9M+ rows) designed to simulate real-world data quality issues and high-velocity ingestion.
+- **The Goal:** Build an automated, idempotent pipeline that provides a "Single Version of Truth" for executive revenue reporting while maintaining full historical context of customer movements.
 
 ## Architecture & Design
 The pipeline is divided into three layers to ensure data reliability and governance:
@@ -54,10 +53,10 @@ The Gold layer enables millisecond-latency queries for complex business question
 
 ## Key Engineering Results
 - **Data Parity:** Maintained 100% integrity across **5,957,141** records from Bronze to Gold.
-- **Idempotency:** Designed a self-healing pipeline that can be re-run indefinitely without duplicating data.
-- **Performance:** Reduced Fact Table join overhead using integer-based surrogate date keys.
+- **Idempotency & Resilience:** Designed a self-healing pipeline using Delta `MERGE` and `row_hash` that can be re-run indefinitely without data duplication.
+- **Data Governance:** Implemented **Unity Catalog** for centralized metadata management and secure S3 access via External Locations.
+- **Schema Evolution:** Leveraged Delta Lake's schema enforcement and evolution to handle upstream source changes without pipeline failure.
+- **Performance:** Optimized Fact-to-Dimension joins using integer-based surrogate keys, minimizing memory shuffle during large-scale aggregations.
 
 ---
-**Author:** Neel Munjpara  
-**Location:** Ahmedabad, India  
-**Role:** Data Engineer
+**Author:** Neel Munjpara
